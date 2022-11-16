@@ -1,1 +1,8 @@
+# Server builds
 /bin
+
+# Server folders & files
+/players
+/resources
+/world
+/config.toml

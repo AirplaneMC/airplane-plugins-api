@@ -3,6 +3,7 @@ module github.com/AirplaneMC/airplane-plugins-api
 go 1.18
 
 require (
+	github.com/aarzilli/golua v0.0.0-20210507130708-11106aa57765 // indirect
 	github.com/brentp/intintmap v0.0.0-20190211203843-30dc0ade9af9 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/df-mc/atomic v1.10.0 // indirect
