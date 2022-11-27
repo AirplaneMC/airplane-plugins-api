@@ -2,6 +2,8 @@ module github.com/AirplaneMC/airplane-plugins-api
 
 go 1.18
 
+require gopkg.in/yaml.v3 v3.0.1
+
 require (
 	github.com/aarzilli/golua v0.0.0-20210507130708-11106aa57765 // indirect
 	github.com/brentp/intintmap v0.0.0-20190211203843-30dc0ade9af9 // indirect

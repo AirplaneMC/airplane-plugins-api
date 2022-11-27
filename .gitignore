@@ -6,3 +6,7 @@
 /resources
 /world
 /config.toml
+/plugins
+
+#
+/test

@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.globals": [
+        "serverEvents",
+        "playerEvents",
+        "pluginEvents",
+        "plugin",
+        "Vault"
+    ]
+}
