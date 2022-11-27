@@ -15,7 +15,7 @@ type CalledEvent struct {
 	Self     lua.LValue
 }
 
-var events map[string]map[string][]*CalledEvent
+var events map[string]map[string][]*CalledEvent = make(map[string]map[string][]*CalledEvent)
 
 func InitEvent(log *logrus.Logger, p *types.Plugin, main *lua.LTable) {
 	eventsList := main.RawGetString("events")
