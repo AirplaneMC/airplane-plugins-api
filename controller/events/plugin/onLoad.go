@@ -1,13 +1,13 @@
 package plugin
 
 import (
+	"github.com/AirplaneMC/airplane-plugins-api/controller/types"
 	"github.com/sirupsen/logrus"
 
-	pController "github.com/AirplaneMC/airplane-plugins-api/controller"
 	lua "github.com/yuin/gopher-lua"
 )
 
-func OnLoad(l *lua.LState, self, loadFunc lua.LValue, p *pController.Plugin, log *logrus.Logger) {
+func OnLoad(log *logrus.Logger, l *lua.LState, self, loadFunc lua.LValue, p *types.Plugin) {
 	err := l.CallByParam(lua.P{
 		Fn: loadFunc,
 

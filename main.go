@@ -5,13 +5,14 @@ import (
 	"os"
 
 	"github.com/AirplaneMC/airplane-plugins-api/controller/events"
-	"github.com/AirplaneMC/airplane-plugins-api/controller/events/player"
 	"github.com/AirplaneMC/airplane-plugins-api/loader"
 	"github.com/df-mc/dragonfly/server"
-	dPlayer "github.com/df-mc/dragonfly/server/player"
 	"github.com/df-mc/dragonfly/server/player/chat"
 	"github.com/pelletier/go-toml"
 	"github.com/sirupsen/logrus"
+
+	playerEvents "github.com/AirplaneMC/airplane-plugins-api/controller/events/player"
+	serverPlayer "github.com/df-mc/dragonfly/server/player"
 )
 
 func main() {
@@ -30,7 +31,7 @@ func main() {
 	srv := conf.New()
 	srv.CloseOnProgramEnd()
 
-	err = loader.Load(log)
+	l, err := loader.Load(log)
 	if err != nil {
 		log.Fatalln("An error occurred while trying to load plugins. Error:", err)
 		return
@@ -38,9 +39,9 @@ func main() {
 
 	srv.Listen()
 
-	for srv.Accept(func(p *dPlayer.Player) {
-		p.Handle(&player.PlayerHandler{})
-		events.CallOnJoinPE(log, p)
+	for srv.Accept(func(p *serverPlayer.Player) {
+		p.Handle(&playerEvents.PlayerHandler{})
+		events.CallOnJoinPE(log, l, p)
 	}) {
 	}
 }

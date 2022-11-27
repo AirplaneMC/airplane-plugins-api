@@ -6,52 +6,51 @@ import (
 
 	"github.com/AirplaneMC/airplane-plugins-api/controller"
 	"github.com/AirplaneMC/airplane-plugins-api/controller/events"
+	"github.com/AirplaneMC/airplane-plugins-api/controller/types"
 	"github.com/sirupsen/logrus"
 	lua "github.com/yuin/gopher-lua"
 )
 
-func Load(log *logrus.Logger) error {
+func Load(log *logrus.Logger) (*lua.LState, error) {
 	log.Infoln("Loading plugins...")
 	if _, err := os.Stat("./plugins"); err != nil {
 		log.Debugln("Crating plugins folder...")
 		if err := os.Mkdir("./plugins", 0666); err != nil {
-			return err
+			return nil, err
 		}
-		return err
+		return nil, err
 	}
 	pluginsFolders, err := os.ReadDir("./plugins")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	controller.GEvents = make(map[string]map[string][]*controller.CalledEvent)
-	controller.Plugin_VM = lua.NewState()
-
-	initLibs(controller.Plugin_VM)
+	l := lua.NewState()
+	initLibs(l)
 
 	for _, obj := range pluginsFolders {
 		if obj.IsDir() {
-			c := controller.Plugin{}
+			c := types.Plugin{}
 			path := "./plugins/" + obj.Name()
 
 			data, err := ioutil.ReadFile(path + "/config.yml")
 			if err != nil {
-				return err
+				return nil, err
 			}
 
 			err = c.ReadConfig(data)
 			if err != nil {
-				return err
+				return nil, err
 			}
 
-			err = controller.Init(&c, path, log)
+			err = controller.Init(log, l, &c, path)
 			if err != nil {
-				return err
+				return nil, err
 			}
 		}
 	}
 
-	events.CallOnLoadPE(log)
+	events.CallOnLoadPE(log, l)
 
-	return nil
+	return l, nil
 }

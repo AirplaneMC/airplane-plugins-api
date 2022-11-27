@@ -1,15 +1,8 @@
-package controller
+package types
 
 import (
-	lua "github.com/yuin/gopher-lua"
 	"gopkg.in/yaml.v3"
 )
-
-type CalledEvent struct {
-	Plugin   *Plugin
-	Function lua.LValue
-	Self     lua.LValue
-}
 
 type Plugin struct {
 	Name    string `yaml:"name"`

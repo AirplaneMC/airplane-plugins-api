@@ -1,11 +1,11 @@
 package plugin
 
 import (
-	pController "github.com/AirplaneMC/airplane-plugins-api/controller"
+	"github.com/AirplaneMC/airplane-plugins-api/controller/types"
 	lua "github.com/yuin/gopher-lua"
 )
 
-func createPluginContext(l *lua.LState, p *pController.Plugin) *lua.LTable {
+func createPluginContext(l *lua.LState, p *types.Plugin) *lua.LTable {
 	t := l.NewTable()
 
 	l.SetField(t, "Name", lua.LString(p.Name))

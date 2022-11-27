@@ -1,4 +1,4 @@
-package controller
+package events
 
 const (
 	PLUGIN_EVENTS string = "pluginEvents"
